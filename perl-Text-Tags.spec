@@ -15,7 +15,6 @@ Source:		http://www.cpan.org/modules/by-module/Text/%{module}-%{version}.tar.bz2
 BuildRequires:	perl-devel
 %endif
 BuildArch:      noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Parses "folksonomies", which are 
