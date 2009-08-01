@@ -1,21 +1,21 @@
-%define module	Text-Tags
-%define name	perl-%{module}
-%define version 0.04
-%define release %mkrel 4
+%define upstream_name	 Text-Tags
+%define upstream_version 0.04
 
-Name: 		%{name}
-Version: 	%{version}
-Release:	%{release} 
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
+
 Summary:	Perl module to parse "folksonomy" space-separated tags
-License:	GPL or Artistic
+License:	GPL+ or Artistic
 Group:		Development/Perl
-URL:		http://search.cpan.org/dist/%{module}
-Source:		http://www.cpan.org/modules/by-module/Text/%{module}-%{version}.tar.bz2
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/Text/%{upstream_name}-%{upstream_version}.tar.bz2
+
 %if %{mdkversion} < 1010
 BuildRequires:	perl-devel
 %endif
-BuildArch:      noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildArch:  noarch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 Parses "folksonomies", which are 
@@ -45,7 +45,7 @@ spaces.
 
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
@@ -66,4 +66,3 @@ rm -rf %{buildroot}
 %doc Changes README
 %{perl_vendorlib}/Text
 %{_mandir}/man3/*
-
