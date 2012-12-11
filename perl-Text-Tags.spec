@@ -1,9 +1,9 @@
 %define upstream_name	 Text-Tags
 %define upstream_version 0.04
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
 
 Summary:	Perl module to parse "folksonomy" space-separated tags
 License:	GPL+ or Artistic
@@ -11,11 +11,8 @@ Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}
 Source0:	http://www.cpan.org/modules/by-module/Text/%{upstream_name}-%{upstream_version}.tar.bz2
 
-%if %{mdkversion} < 1010
 BuildRequires:	perl-devel
-%endif
-BuildArch:  noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
+BuildArch:	noarch
 
 %description
 Parses "folksonomies", which are 
@@ -43,26 +40,58 @@ general use, you can just understand the rules as being separate tags with
 spaces or commas, and put either kind of quotes around tags that need to have 
 spaces.
 
-
 %prep
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
-%{__make} test
+make test
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc Changes README
 %{perl_vendorlib}/Text
 %{_mandir}/man3/*
+
+%changelog
+* Sat Aug 01 2009 JÃ©rÃ´me Quelin <jquelin@mandriva.org> 0.40.0-1mdv2010.0
++ Revision: 406190
+- rebuild using %%perl_convert_version
+
+* Wed Jul 23 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.04-4mdv2009.0
++ Revision: 242056
+- rebuild
+- fix description-line-too-long
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Sat Sep 15 2007 Guillaume Rousse <guillomovitch@mandriva.org> 0.04-2mdv2008.0
++ Revision: 87031
+- rebuild
+
+
+* Thu Jun 08 2006 Guillaume Rousse <guillomovitch@mandriva.org> 0.04-1mdv2007.0
+- New release 0.04
+- spec cleanup
+- HTTP source URL
+
+* Fri Apr 28 2006 Nicolas Lécureuil <neoclust@mandriva.org> 0.03-2mdk
+- Fix SPEC according to Perl Policy
+	- Source URL
+
+* Fri Mar 03 2006 Michael Scherer <misc@mandriva.org> 0.03-1mdk
+- New release 0.03
+
+* Tue Dec 27 2005 Michael Scherer <misc@mandriva.org> 0.02-2mdk
+- Do not ship empty dir
+
+* Wed Sep 21 2005 Michael Scherer <misc@mandriva.org> 0.02-1mdk
+- First mandriva package
+
